@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-15" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Second Serve for El Salvador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+.donate-showcase{
+  background-image: url("images/image-14.png"); /* pick your background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.donate-showcase::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(255,255,255,0.78); /* transparency strength */
+  pointer-events:none;
+}
+
+.donate-showcase .donate-content{
+  position: relative;
+  z-index: 1;
+}
+
+
+/* --- DONATE SECTION POLISH --- */
+#donate .grid-2{
+  align-items: stretch;        /* makes both cards same height */
+  gap: 26px;                   /* a bit more breathing room */
+}
+
+#donate .card{
+  padding: 22px;
+}
+
+/* Left card typography */
+#donate h2{
+  margin-bottom: 8px;
+}
+
+#donate .muted{
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+/* Remove default bullets */
+#donate .bullets{
+  list-style: none;
+  padding-left: 0;
+  margin-top: 14px;
+  line-height: 1.8;
+}
+
+/* Tennis ball bullets */
+#donate .bullets li{
+  position: relative;
+  padding-left: 34px;
+  margin-bottom: 10px;
+}
+
+#donate .bullets li::before{
+  content: "🎾";
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+/* Right card: title looks like a section label */
+#donate .image-grid > .muted{
+  font-weight: 700;
+  color: var(--teal);
+  margin: 0 0 12px;
+}
+
+/* Right card: make images consistent + pretty */
+#donate .image-grid{
+  gap: 14px;
+}
+
+/* DONATE photos: full image visible + no ugly empty space */
+#donate .image-grid img.donate-photo{
+  width: 100%;
+  height: 220px;              /* tweak if you want */
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+
+  object-fit: contain;         /* NO CROP */
+  background: rgba(255,255,255,0.0);
+
+  /* blur-fill behind the image */
+  background-image: inherit;
+}
+
+/* Blur fill effect behind each image */
+#donate .image-grid img.donate-photo{
+  background: none;
+  position: relative;
+}
+
+/* This is the trick: use a wrapper effect WITHOUT changing HTML structure */
+#donate .image-grid{
+  gap: 12px;
+}
+
+#donate .image-grid img.donate-photo{
+  background-color: transparent;
+  object-fit: contain;
+}
+
+/* Wrapper-like effect using a pseudo background via filter */
+#donate .image-grid img.donate-photo{
+  background: transparent;
+}
+
+/* The clean version: use a parent container effect */
+#donate .image-grid img.donate-photo{
+  background: transparent;
+}
+
+
+/* Optional: subtle border so it feels less flat */
+#donate .card{
+  border: 1px solid rgba(15,23,42,.06);
+}
+    
+/* 🎾 MINI GAME */
+.mini-game{
+  margin: 18px 0 22px;
+  padding: 16px;
+  background: rgba(11,74,90,0.05);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.mini-title{
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.ball-area{
+  height: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mini-ball{
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 30% 30%, #dfff3f, #9acd32);
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 10px;
+  cursor: pointer;
+  animation: bounce 2s infinite alternate ease-in-out;
+  transition: transform 0.2s ease;
+}
+
+.mini-ball:hover{
+  transform: scale(1.2);
+}
+
+@keyframes bounce{
+  from { left: 0; }
+  to { left: calc(100% - 32px); }
+}
+
+.mini-score{
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+
+  :root {
+    --teal: #0b4a5a;
+    --green: #2f7a3d;
+    --bg: #ffffff;
+    --muted: #5b6770;
+    --card: #f6f8fa;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .08);
+    --radius: 18px;
+    --max: 1050px;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  body {
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #0f172a;
+    background: var(--bg);
+  }
+  
+  a { color: inherit; }
+  
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, .85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(15, 23, 42, .08);
+  }
+  
+  .nav-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .brand {
+    font-weight: 800;
+    letter-spacing: .2px;
+    color: var(--teal);
+  }
+  
+  .nav a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #0f172a;
+    opacity: .85;
+    margin-left: 14px;
+  }
+  
+  .nav a:hover { opacity: 1; }
+  
+  /* LAYOUT */
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 18px;
+  }
+  
+  section { padding: 70px 0; }
+  
+  /* HERO */
+  .hero { padding: 58px 0 40px; }
+  
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 28px;
+    align-items: center;
+  }
+  
+  .kicker {
+    color: var(--green);
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 2rem;
+  }
+  
+  h1 {
+    margin: 10px 0 14px;
+    font-size: clamp(1.2rem, 3.5vw, 1.9rem);
+    line-height: 1.05;
+    color: var(--teal);
+  }
+
+  /* ONLY the hero title (We repurpose...) */
+.hero h1{
+  font-size: 1.0rem; /* change this number */
+}
+
+  
+  h2 {
+    margin: 0 0 10px;
+    font-size: 1.9rem;
+    color: var(--teal);
+  }
+  
+  .lead {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 22px;
+  }
+  
+  .muted { color: var(--muted); line-height: 1.6; }
+  
+  .btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  
+  .btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .btn.primary { background: var(--green); color: white; }
+  .btn.secondary { background: #0b4a5a10; color: var(--teal); }
+  
+  /* CARDS */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+  }
+  
+  .logo-fit{
+  width: 100%;
+  height: 260px;      /* controls the box height */
+  object-fit: contain; /* makes the full logo fit inside */
+  display: block;
+  background: transparent;
+  padding: 0;
+}
+
+  
+  /* DONATE IMAGE GRID (2 images) */
+  .image-grid {
+    display: grid;
+    gap: 12px;
+  }
+  
+.image-grid img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+
+  /* ONLY the logo: show the whole circle, never crop */
+.image-grid img.logo-fit{
+  height: auto;          /* stop forcing it into 260px */
+  max-height: 260px;     /* keep it from getting huge */
+  width: 100%;
+  object-fit: contain;   /* whole logo visible */
+}
+
+  
+  /* DONATION PLACES LIST */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+  
+  .bullets {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--muted);
+  }
+
+  
+  /* IMPACT GALLERY (IMPORTANT CLEAN FIX) */
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+    align-items: start;
+  }
+  
+  .image-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .06);
+    text-align: center;
+  }
+  
+  .image-card img {
+    display: block;
+    width: 100%;
+    height: 240px;            /* adjust this */
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+
+
+  }
+  
+  .image-card p {
+    margin: 10px 0 0;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+    font-size: 0.95rem;
+  }
+  
+  /* nice hover without breaking layout */
+  .image-card:hover img {
+    transform: scale(1.06);
+  }
+  
+  /* FOOTER / IG */
+  .footer {
+    padding: 26px 0 50px;
+    border-top: 1px solid rgba(15, 23, 42, .08);
+  }
+  
+  .ig {
+    margin-top: 14px;
+    background: var(--green);
+    color: white;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .ig a { color: white; font-weight: 800; text-decoration: none; }
+
+
+  
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .hero-grid, .grid-2 { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 55px 0; }
+  }
+
+  #founder .image-card img{
+  width: 100%;
+  height: 350px;          /* controls size of box */
+  object-fit: cover;      /* fills the box */
+  object-position: center 77%; /* change this */
+  border-radius: 16px;
+}
+
+/* Remove zoom effect ONLY for founder image */
+#founder .image-card:hover img {
+  transform: none;
+}
+#donate .image-grid img:nth-of-type(1){
+    width: 100% !important;
+  height: 420px !important;  
+  object-position: center 20% !important;
+}
+
+#donate .image-grid img:nth-of-type(2){
+  object-position: center 80% !important;
+}
+
+
+  </style>
+  
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">Second Serve For El Salvador Supporting second chances.</div>
+      <div>
+        <a href="#about">About</a>
+        <a href="#impact">Impact</a>
+        <a href="#donate">Donate</a>
+        <a href="#founder">Founder</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="about">
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">Second Serve for El Salvador</div>
+        <h1>We repurpose used tennis balls into impact.</h1>
+        <p class="lead"> Every day, people throw away tennis balls that aren’t “good” for playing anymore, even though they can still be useful. With Second Serve, we collect them and repurpose them into crafts for schools and orphanages, add them to walking aids so they last longer, and donate them to animal shelters so dogs can play with them — instead of the balls going to waste. </p>
+        <div class="btns">
+          <a class="btn primary" href="#donate">Donate tennis balls</a>
+          <a class="btn secondary" href="#impact">See where we’ve donated</a>
+
+        </div>
+      </div>
+      <div class="image">
+        <img class="logo-fit" src="images/Image-13.png" alt="Second Serve logo">
+      </div>
+    </div>
+  </section>
+
+  <section id="impact">
+    
+    <div class="container">
+      <h2>Where have we donated?</h2>
+      <p class="muted">A few of the places we’ve supported so far:</p>
+      <div class="gallery">
+        <div class="image-card">
+          <img src="images/Image-12.png">
+          <p>Teleton</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-8.png">
+          <p>HOPAC</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-11.png">
+          <p>Fusate</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-10.png">
+          <p>Hogar del Niño San Vicente de Paul</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-4.png">
+          <p>Hogar nuestra señora Reina de la paz</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-9.png">
+          <p>Hogar nuestra señora Reina de la paz</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-7.png">
+          <p>San Vicente de Paul</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-5.png">
+          <p>San Vicente de Paul</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-6.png">
+          <p>Extracurricular Academia Britanica Cuscatleca</p>
+        </div>
+        <div class="image-card">
+          <img src="images/Image-15.png">
+          <p>CAI-EDU</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="donate">
+    <div class="donate-showcase">
+  
+      <!-- MIDDLE content -->
+      <div class="container grid-2 donate-content">
+        <div class="card">
+          <h2>Places to donate tennis balls to us:</h2>
+          <p class="muted">Drop off your used tennis balls at:</p>
+          <ul class="bullets">
+            <li>Federación Salvadoreña de Tenis (FST)</li>
+            <li>Club Campestre Cuscatlán</li>
+            <li>Círculo Deportivo Internacional</li>
+            <li>Padel Pro</li>
+            <li>Padel Sport Center</li>
+            <li>Matchpoint, Tuscania</li>
+
+<!-- 🎾 MINI GAME START -->
+<div class="mini-game">
+  <p class="mini-title">🎾 Catch the tennis ball!</p>
+  <div class="ball-area">
+    <div class="mini-ball" id="miniBall"></div>
+  </div>
+  <p class="mini-score">
+    Balls caught: <span id="score">0</span>
+  </p>
+</div>
+<!-- 🎾 MINI GAME END -->
+
+<ul class="bullets">
+
+              
+
+            <div class="donate-note">
+                🎾 We accept balls in any condition, even flat ones!
+                <br>
+                ♻️ Every donation helps us support schools, shelters, orphanages and elderly homes.
+              </div>
+              
+          </ul>
+        </div>
+  
+        <div class="card image-grid">
+          <p class="muted" style="margin-bottom:12px;">Donation boxes to look for:</p>
+          <img src="images/image-1.png" alt="Donation box example 1">
+          <img src="images/image-2.png" alt="Donation box example 2">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="founder">
+      <div class="container donate-content grid-2">
+      <div class="card">
+        <h2>Founder</h2>
+        <p class="muted"> Hi! I’m Andrea Espinal, founder of Second Serve for El Salvador. I started this project to reduce waste, involve the community, and turn something small (tennis balls) into something useful. I love recycling and playing Tenis. </p>
+      </div>
+      <div class="image-card">
+        <img src="images/Image-16.png">
+        <div class="ig">
+          <div><strong>Follow us on Instagram</strong></div>
+          <a href="https://instagram.com/secondserveforelsalvador" target="_blank" rel="noreferrer"> @secondserveforelsalvador → </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="container muted"> © <span id="y"></span> Second Serve for El Salvador </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  
+    let score = 0;
+    const ball = document.getElementById("miniBall");
+    const scoreDisplay = document.getElementById("score");
+  
+    ball.addEventListener("click", () => {
+      score++;
+      scoreDisplay.textContent = score;
+  
+      ball.style.animation = "none";
+      void ball.offsetWidth;
+      ball.style.animation = "bounce 2s infinite alternate ease-in-out";
+    });
+  </script>
+  
+</body>
+
+</html>
+
